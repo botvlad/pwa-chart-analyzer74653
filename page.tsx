@@ -1,31 +1,19 @@
-import Link from "next/link";
-import GameCard from "@/components/GameCard";
+import BotPanel from "@/components/BotPanel";
 
-export default function Home() {
-  const games = [
-    { id: "mines", name: "Mines", icon: "/icons/mines.png" },
-    { id: "lucky-jet", name: "Lucky Jet", icon: "/icons/lucky-jet.png" },
-    { id: "coinflip", name: "CoinFlip", icon: "/icons/coinflip.png" },
-    { id: "rocket-x", name: "Rocket X", icon: "/icons/rocket-x.png" },
-    { id: "rocket-queen", name: "Rocket Queen", icon: "/icons/rocket-queen.png" },
-    { id: "spins-queen", name: "Spins Queen", icon: "/icons/spins-queen.png" },
-    { id: "speed-n-cash", name: "Speed-n-Cash", icon: "/icons/speed-n-cash.png" },
-    { id: "brawl-pirates", name: "Brawl Pirates", icon: "/icons/brawl-pirates.png" },
-    { id: "royal-mines", name: "Royal Mines", icon: "/icons/royal-mines.png" },
-    { id: "lucky-loot", name: "Lucky Loot", icon: "/icons/lucky-loot.png" },
-    { id: "aviator", name: "Aviamaster", icon: "/icons/aviator.png" },
-  ];
+interface Props { params: { game: string }; }
 
+const gameNames: Record<string,string> = {
+  "mines":"Mines","lucky-jet":"Lucky Jet","coinflip":"CoinFlip","rocket-x":"Rocket X",
+  "rocket-queen":"Rocket Queen","spins-queen":"Spins Queen","speed-n-cash":"Speed-n-Cash",
+  "brawl-pirates":"Brawl Pirates","royal-mines":"Royal Mines","lucky-loot":"Lucky Loot"
+};
+
+export default function GamePage({ params }: Props) {
+  const gameTitle = gameNames[params.game] || "Игра";
   return (
     <main className="min-h-screen bg-[#0f0f16] text-white p-6">
-      <h1 className="text-3xl font-bold mb-6">Игры 1Win</h1>
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-        {games.map((game) => (
-          <Link key={game.id} href={`/games/${game.id}`}>
-            <GameCard name={game.name} icon={game.icon} />
-          </Link>
-        ))}
-      </div>
+      <h1 className="text-3xl font-bold mb-6">{gameTitle} — Бот</h1>
+      <BotPanel />
     </main>
   );
 }
